@@ -5,15 +5,13 @@ const path = require('path');
 const multer = require('multer');
 const http = require('http');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('./docs/swagger.json'); // Оновлений шлях до Swagger
 const { Pool } = require('pg'); // Підключаємо PostgreSQL
 
 // Отримуємо налаштування з .env
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
 const cacheDir = process.env.CACHE_DIR || './cache';
-
-// console.log("Тест перезапуску!");
 
 // Створюємо папку кешу для фотографій
 if (!fs.existsSync(cacheDir)) {
@@ -34,6 +32,8 @@ const upload = multer({ dest: cacheDir });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Підключення документації
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const methodNotAllowed = (req, res) => res.status(405).send('Method Not Allowed');
@@ -141,9 +141,9 @@ app.route('/inventory/:id/photo')
   })
   .all(methodNotAllowed);
 
-// Форми та пошук
-app.get('/RegisterForm.html', (req, res) => res.sendFile(path.join(__dirname, 'RegisterForm.html')));
-app.get('/SearchForm.html', (req, res) => res.sendFile(path.join(__dirname, 'SearchForm.html')));
+// Форми та пошук (оновлені шляхи до папки public)
+app.get('/RegisterForm.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'RegisterForm.html')));
+app.get('/SearchForm.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'SearchForm.html')));
 
 app.route('/search')
   .post(async (req, res) => {
