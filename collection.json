@@ -1,0 +1,97 @@
+{
+	"info": {
+		"name": "Inventory Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. POST /register (Створення)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{ "key": "inventory_name", "value": "Postman Test Device", "type": "text" },
+						{ "key": "description", "value": "Тестуємо реєстрацію через Postman", "type": "text" },
+						{ "key": "photo", "type": "file", "src": [] }
+					]
+				},
+				"url": { "raw": "http://localhost:3000/register", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["register"] }
+			}
+		},
+		{
+			"name": "2. GET /inventory (Отримати всі)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": { "raw": "http://localhost:3000/inventory", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["inventory"] }
+			}
+		},
+		{
+			"name": "3. GET /inventory/1 (Отримати один)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": { "raw": "http://localhost:3000/inventory/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["inventory", "1"] }
+			}
+		},
+		{
+			"name": "4. PUT /inventory/1 (Оновити текст)",
+			"request": {
+				"method": "PUT",
+				"header": [ { "key": "Content-Type", "value": "application/json" } ],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"inventory_name\": \"Оновлена назва\",\n  \"description\": \"Цей опис змінено через PUT запит\"\n}"
+				},
+				"url": { "raw": "http://localhost:3000/inventory/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["inventory", "1"] }
+			}
+		},
+		{
+			"name": "5. GET /inventory/1/photo (Отримати фото)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": { "raw": "http://localhost:3000/inventory/1/photo", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["inventory", "1", "photo"] }
+			}
+		},
+		{
+			"name": "6. PUT /inventory/1/photo (Оновити фото)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{ "key": "photo", "type": "file", "src": [] }
+					]
+				},
+				"url": { "raw": "http://localhost:3000/inventory/1/photo", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["inventory", "1", "photo"] }
+			}
+		},
+		{
+			"name": "7. POST /search (Пошук)",
+			"request": {
+				"method": "POST",
+				"header": [ { "key": "Content-Type", "value": "application/x-www-form-urlencoded" } ],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{ "key": "id", "value": "1", "type": "text" },
+						{ "key": "has_photo", "value": "on", "type": "text" }
+					]
+				},
+				"url": { "raw": "http://localhost:3000/search", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["search"] }
+			}
+		},
+		{
+			"name": "8. DELETE /inventory/1 (Видалити)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": { "raw": "http://localhost:3000/inventory/1", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["inventory", "1"] }
+			}
+		}
+	]
+}

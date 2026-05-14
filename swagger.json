@@ -1,0 +1,47 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Inventory Service API",
+    "version": "1.0.0",
+    "description": "API для сервісу інвентаризації (Лабораторна робота №6)"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Локальний сервер"
+    }
+  ],
+  "paths": {
+    "/inventory": {
+      "get": {
+        "summary": "Отримання списку всіх інвентаризованих речей",
+        "responses": {
+          "200": {
+            "description": "Успішний запит. Повертає масив пристроїв."
+          }
+        }
+      }
+    },
+    "/inventory/{id}": {
+      "get": {
+        "summary": "Отримання інформації про конкретну річ",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Інформація про річ знайдена" },
+          "404": { "description": "Річ не знайдена" }
+        }
+      },
+      "delete": {
+        "summary": "Видалення речі зі списку",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Видалено успішно" }
+        }
+      }
+    }
+  }
+}
