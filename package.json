@@ -1,6 +1,22 @@
 {
+  "name": "backend-course-2025-7",
+  "version": "1.0.0",
+  "description": "Лабораторна робота 7 - Docker та БД",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --ignore cache/ index.js",
+    "docker:dev": "nodemon --inspect=0.0.0.0:9229 --ignore cache/ index.js"
+  },
   "dependencies": {
-    "dotenv": "^17.4.2",
-    "pg": "^8.20.0"
+    "commander": "^12.0.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.5",
+    "swagger-ui-express": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
   }
 }
