@@ -13,6 +13,8 @@ const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
 const cacheDir = process.env.CACHE_DIR || './cache';
 
+// console.log("Тест перезапуску!");
+
 // Створюємо папку кешу для фотографій
 if (!fs.existsSync(cacheDir)) {
   fs.mkdirSync(cacheDir, { recursive: true });
