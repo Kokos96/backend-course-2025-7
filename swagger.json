@@ -3,7 +3,7 @@
   "info": {
     "title": "Inventory Service API",
     "version": "1.0.0",
-    "description": "API для сервісу інвентаризації (Лабораторна робота №6)"
+    "description": "API для сервісу інвентаризації (Лабораторна робота №7)"
   },
   "servers": [
     {
@@ -12,13 +12,36 @@
     }
   ],
   "paths": {
+    "/register": {
+      "post": {
+        "summary": "Реєстрація нової речі",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inventory_name": { "type": "string", "description": "Назва речі" },
+                  "description": { "type": "string", "description": "Опис" },
+                  "photo": { "type": "string", "format": "binary", "description": "Фотографія" }
+                },
+                "required": ["inventory_name"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Створено успішно" },
+          "400": { "description": "Помилка: відсутня назва" }
+        }
+      }
+    },
     "/inventory": {
       "get": {
         "summary": "Отримання списку всіх інвентаризованих речей",
         "responses": {
-          "200": {
-            "description": "Успішний запит. Повертає масив пристроїв."
-          }
+          "200": { "description": "Успішний запит. Повертає масив пристроїв." }
         }
       }
     },
@@ -33,6 +56,28 @@
           "404": { "description": "Річ не знайдена" }
         }
       },
+      "put": {
+        "summary": "Оновлення тексту або опису речі",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inventory_name": { "type": "string" },
+                  "description": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Оновлено успішно" }
+        }
+      },
       "delete": {
         "summary": "Видалення речі зі списку",
         "parameters": [
@@ -40,6 +85,27 @@
         ],
         "responses": {
           "200": { "description": "Видалено успішно" }
+        }
+      }
+    },
+    "/search": {
+      "post": {
+        "summary": "Пошук речі за ID через форму",
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "has_photo": { "type": "string", "enum": ["on", "off"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Знайдено" }
         }
       }
     }
